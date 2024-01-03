@@ -1,0 +1,7 @@
+CREATE TABLE board (
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  sid VARCHAR(255) NOT NULL PRIMARY KEY,
+  owner_sid VARCHAR(255) NOT NULL,
+  link VARCHAR(255)
+);
