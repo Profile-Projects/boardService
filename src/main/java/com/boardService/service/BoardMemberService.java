@@ -1,48 +1,47 @@
 package com.boardService.service;
 
 import com.boardService.models.Board;
+import com.boardService.models.BoardMember;
 import com.boardService.models.Users;
+import com.boardService.repository.BoardMemberRepository;
 import com.boardService.repository.BoardRepository;
 import com.boardService.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
-public class BoardService extends BaseService<BoardRepository, Board, String> {
+public class BoardMemberService extends BaseService<BoardMemberRepository, BoardMember, String> {
 
     @Autowired
-    private BoardRepository boardRepository;
+    private BoardMemberRepository boardMemberRepository;
 
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+    private BoardRepository boardRepository;
+
     protected Integer nextSid;
 
-    protected String prefix = "BD";
-
-    protected String tableName;
-//    public BoardService() {
-//        super("BD", "board");
-//        findNextSid();
-//    }
+    protected String prefix = "BM";
 
     @Override
-    public Board add(final Board board) {
+    public BoardMember add(final BoardMember boardMember) {
         findNextSid();
-        final Board newBoard = Board.from(board);
-        final Optional<Users> userO = usersRepository.findById(newBoard.getOwnerSid());
-        if (userO.isEmpty()) return null;
+        final BoardMember newBoardMember = BoardMember.from(boardMember);
+        final Optional<Users> userO = usersRepository.findById(newBoardMember.getUserSid());
+        final Optional<Board> boardO = boardRepository.findById(newBoardMember.getBoardSid());
+        if (userO.isEmpty() || boardO.isEmpty()) return null;
         final String sid = getNextSid();
-        newBoard.setSid(sid);
-        return super.add(newBoard);
+        newBoardMember.setSid(sid);
+        return super.add(newBoardMember);
     }
 
 
     private void findNextSid() {
-        final String maxSid = (String) boardRepository.findMaxId();
+        final String maxSid = (String) boardMemberRepository.findMaxId();
         if (maxSid == null) {
             this.nextSid = 1;
         } else {
