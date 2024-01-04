@@ -1,15 +1,16 @@
 package com.boardService.controller;
 
-import com.boardService.models.BaseModel;
-import com.boardService.repository.BaseRepository;
+import com.boardService.repository.AbstractRepository;
 import com.boardService.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.util.Optional;
 
-public abstract class BaseController<S extends BaseService, T, I> {
+public abstract class BaseController<S extends BaseService<R, T, I>, T, I extends Serializable, R extends JpaRepository<T, I>> {
 
     @Autowired
     protected S service;

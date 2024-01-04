@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Entity
 @Table(name = "board")
-public class Board extends BaseModel<Board, String> {
+public class Board{
 
     @Id
     @Column(name = "sid")

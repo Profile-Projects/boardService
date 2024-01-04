@@ -1,16 +1,13 @@
 package com.boardService.service;
 
-import com.boardService.models.BaseModel;
-import com.boardService.models.Model;
-import com.boardService.repository.BaseRepository;
+//import com.boardService.repository.AbstractRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.swing.text.html.Option;
-import java.util.Map;
+import java.io.Serializable;
 import java.util.Optional;
 
-public abstract class BaseService<R extends BaseRepository<T, ID>, T, ID> {
+public abstract class BaseService<R extends JpaRepository<T, ID>, T, ID extends Serializable> {
 
     @Autowired
     protected R repo;
@@ -21,14 +18,14 @@ public abstract class BaseService<R extends BaseRepository<T, ID>, T, ID> {
 
     protected String tableName;
 
-    public BaseService(final String prefix, final String tableName) {
-        this.prefix = prefix;
-        this.tableName = tableName;
-//        this.findNextSid();
-    }
+//    public BaseService(final String prefix, final String tableName) {
+//        this.prefix = prefix;
+//        this.tableName = tableName;
+////        this.findNextSid();
+//    }
 
     public T add(final T t) {
-        findNextSid();
+//        findNextSid();
         return repo.saveAndFlush(t);
     }
 
@@ -41,19 +38,47 @@ public abstract class BaseService<R extends BaseRepository<T, ID>, T, ID> {
         return repo.save(t);
     }
 
-    private void findNextSid() {
-        final String maxSid = (String) repo.findMaxId(this.tableName);
-        if (maxSid == null) {
-            this.nextSid = 1;
-        } else {
-            this.nextSid = Integer.parseInt(maxSid.substring(2)) + 1;
-        }
-        System.out.printf("Next Sid is %d", nextSid);
-    }
-
-    protected String getNextSid() {
-        final String nextSidStr = this.prefix + String.format("06%d", this.nextSid);
-        this.nextSid += 1;
-        return nextSidStr;
-    }
+//    private void findNextSid() {
+//        final String maxSid = (String) repo.findMaxId(this.tableName);
+//        if (maxSid == null) {
+//            this.nextSid = 1;
+//        } else {
+//            this.nextSid = Integer.parseInt(maxSid.substring(2)) + 1;
+//        }
+//        System.out.printf("Next Sid is %d", nextSid);
+//    }
+//
+//    protected String getNextSid() {
+//        final String nextSidStr = this.prefix + String.format("06%d", this.nextSid);
+//        this.nextSid += 1;
+//        return nextSidStr;
+//    }private void findNextSid() {
+//        final String maxSid = (String) repo.findMaxId(this.tableName);
+//        if (maxSid == null) {
+//            this.nextSid = 1;
+//        } else {
+//            this.nextSid = Integer.parseInt(maxSid.substring(2)) + 1;
+//        }
+//        System.out.printf("Next Sid is %d", nextSid);
+//    }
+//
+//    protected String getNextSid() {
+//        final String nextSidStr = this.prefix + String.format("06%d", this.nextSid);
+//        this.nextSid += 1;
+//        return nextSidStr;
+//    }private void findNextSid() {
+//        final String maxSid = (String) repo.findMaxId(this.tableName);
+//        if (maxSid == null) {
+//            this.nextSid = 1;
+//        } else {
+//            this.nextSid = Integer.parseInt(maxSid.substring(2)) + 1;
+//        }
+//        System.out.printf("Next Sid is %d", nextSid);
+//    }
+//
+//    protected String getNextSid() {
+//        final String nextSidStr = this.prefix + String.format("06%d", this.nextSid);
+//        this.nextSid += 1;
+//        return nextSidStr;
+//    }
 }

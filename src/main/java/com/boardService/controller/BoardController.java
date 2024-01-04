@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/board")
-public class BoardController extends BaseController<BoardService, Board, String> {
+public class BoardController extends BaseController<BoardService, Board, String, BoardRepository> {
 
 
 }
