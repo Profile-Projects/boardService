@@ -7,9 +7,11 @@ import com.boardService.repository.BoardMemberRepository;
 import com.boardService.repository.BoardRepository;
 import com.boardService.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class BoardMemberService extends BaseService<BoardMemberRepository, BoardMember, String> {
 
     @Autowired

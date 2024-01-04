@@ -9,10 +9,8 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
-import org.hibernate.usertype.UserType;
-
-import java.sql.Types;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Table(name = "board_member")
 @Entity
@@ -38,42 +36,54 @@ public class BoardMember {
     @Column(name = "props")
     @NonNull
     @JsonProperty("props")
-    @Type(PropsType.class)
-    private Props props;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private BoardMember.BoardMemberProps boardMemberProps;
 
     public static BoardMember from(final BoardMember boardMember) {
         final BoardMember newBoardMember = new BoardMember();
         newBoardMember.setUserSid(boardMember.getUserSid());
         newBoardMember.setBoardSid(boardMember.getBoardSid());
-        newBoardMember.setProps(boardMember.getProps());
+        newBoardMember.setBoardMemberProps(boardMember.getBoardMemberProps());
         if (boardMember.getSid() != null) {
             newBoardMember.setSid(boardMember.getSid());
         }
         return newBoardMember;
     }
 
-    private class Props {
+    private static class BoardMemberProps {
 
         @JsonProperty("permissions")
         @NonNull
-        private String permissions;
+        private BoardMemberPermissions permissions;
     }
 
-    private class PropsType implements UserType<Props> {
+    private enum BoardMemberPermissions {
+        WRITE("WRITE"),
+        REVIEW("REVIEW"),
+        VIEW("VIEW");
 
-        @Override
-        public int getSqlType() {
-            return Types.VARCHAR;
+        public final String label;
+
+        private BoardMemberPermissions(final String label) {
+            this.label = label;
         }
-
-        @Override
-        public Class returnedClass() {
-            return Props.class;
-        }
-
-        @Override
-        public Props replace(final Props props, )
     }
+
+//    private class PropsType implements UserType<Props> {
+//
+//        @Override
+//        public int getSqlType() {
+//            return Types.VARCHAR;
+//        }
+//
+//        @Override
+//        public Class returnedClass() {
+//            return Props.class;
+//        }
+//
+////        @Override
+////        public Props replace(final Props props, )
+//    }
 }
 
 
