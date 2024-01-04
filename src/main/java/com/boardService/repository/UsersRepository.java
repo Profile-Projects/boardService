@@ -1,13 +1,12 @@
 package com.boardService.repository;
 
-import com.boardService.models.Board;
+import com.boardService.models.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BoardRepository extends JpaRepository<Board, String> {
-    @Query(nativeQuery = true,
-            value = "select max(sid) from board")
+public interface UsersRepository extends JpaRepository<Users, String> {
+    @Query("select max(sid) from users")
     String findMaxId();
 }
