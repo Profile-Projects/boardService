@@ -11,3 +11,12 @@ CREATE TABLE users (
   sid VARCHAR(255) NOT NULL PRIMARY KEY,
   email VARCHAR(100)
 );
+
+CREATE TABLE board_member (
+    sid VARCHAR(20) NOT NULL PRIMARY KEY,
+    board_sid VARCHAR(20) NOT NULL,
+    user_sid VARCHAR(20) NOT NULL,
+    props JSONB
+);
+
+ALTER TABLE board_member ADD COLUMN props JSONB;

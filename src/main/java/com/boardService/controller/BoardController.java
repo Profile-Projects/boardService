@@ -21,7 +21,8 @@ public class BoardController extends BaseController<BoardService, Board, String,
     @PostMapping
     public ResponseEntity<Board> add(@RequestBody Board board) {
         final Board newBoard = (Board) boardService.add(board);
-
+        if (newBoard == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(newBoard);
     }
 
 }
