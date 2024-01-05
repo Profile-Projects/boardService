@@ -54,19 +54,7 @@ public class BoardMember {
 
         @JsonProperty("permissions")
         @NonNull
-        private BoardMemberPermissions permissions;
-    }
-
-    private enum BoardMemberPermissions {
-        WRITE("WRITE"),
-        REVIEW("REVIEW"),
-        VIEW("VIEW");
-
-        public final String label;
-
-        private BoardMemberPermissions(final String label) {
-            this.label = label;
-        }
+        private BoardMemberPermission permissions;
     }
 
 //    private class PropsType implements UserType<Props> {

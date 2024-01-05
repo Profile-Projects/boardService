@@ -20,3 +20,15 @@ CREATE TABLE board_member (
 );
 
 ALTER TABLE board_member ADD COLUMN props JSONB;
+
+CREATE TABLE board_invitation (
+    sid VARCHAR(20) NOT NULL PRIMARY KEY,
+    board_sid VARCHAR(20) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    permissions JSONB
+    mark_complete BOOLEAN
+);
+
+
+ALTER TABLE board_invitation RENAME COLUMN permissions TO props;
+ALTER TABLE board_invitation ADD COLUMN mark_complete BOOLEAN;
